@@ -3,11 +3,14 @@
 }
 
 h1 {
-  font-size: 36px;
+  font-size: 64px;
 }
 
 header {
   color: darkslategrey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 body {
@@ -16,9 +19,13 @@ body {
 
 footer {
   color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 div {
+  /*
   height: 500px;
   width: 1500px;
   border: 1px solid black;
@@ -28,22 +35,42 @@ div {
   position: relative;
   background-color: white;
   border-radius: 4px;
+  */
 }
 
 .ball {
-  /* position: absolute; */
-  height: 20px;
-  width: 20px;
+  position: absolute;
+  height: 40px;
+  width: 40px;
   border-radius: 10px;
-  display: flex;
+
+}
+
+.hideBalls {
+  display: none;
+}
+
+#playArea {
+  position: relative;
+  border: 10px solid black;
+  /*animation-timing-function: linear;
+  animation-iteration-count: infinite; */
+  height: 500px;
+}
+
+.gameOn .ball {
+  /* animation: upAndDown 4.5s, leftAndRight 5s; */
+  animation-timing-function: linear !important;
+  animation-iteration-count: infinite !important;
+  /* do not overide */
 }
 
 .majority {
-  background-color: green;
+  background-color: red;
 }
 
 .minority {
-  background-color: red;
+  background-color: green;
 
 }
 
@@ -53,7 +80,7 @@ div {
   }
 
   50% {
-    bottom: calc(100% - 200px);
+    bottom: calc(100% - 40px);
   }
 
   100% {
@@ -67,7 +94,7 @@ div {
   }
 
   50% {
-    left: calc(100% - 200px);
+    left: calc(100% - 40px);
   }
 
   100% {

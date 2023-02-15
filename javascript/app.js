@@ -1,9 +1,9 @@
 const firstPlayMsg = "Play now";
 const winPlayMsg = "You won! Play again";
 const losePlayMsg = "You Lost! Play Again";
-const minSpeed = 2;
-const maxSpeed = 8;
-const defaultBallCount = 4;
+const minSpeed = 10;
+const maxSpeed = 30;
+const defaultBallCount = 5;
 
 let playMsg = firstPlayMsg;
 
@@ -20,9 +20,11 @@ function setBallCount(ballCount) {
 
 function getBallCount() {
   let ballCount = localStorage.getItem("ballCount");
+  console.log("ballCount got = " + ballCount)
   if (!Number.isInteger(parseInt(ballCount)) || ballCount < 2) {
     ballCount = setBallCount(defaultBallCount);
   }
+  console.log("ballCount rtn = " + ballCount)
   return parseInt(ballCount);
 }
 
@@ -35,6 +37,8 @@ function Ball(majority) {
 //renderball
 function renderBalls() {
   let section = document.getElementById('playArea');
+  section.classList.add("gameOn");
+  section.classList.remove("hideBalls");
   for (i = 0; i < game.balls.length; i++) {
     console.log(`i = ${i}`);
     let ballElem = document.createElement("div");
@@ -63,21 +67,19 @@ function renderBalls() {
       }
       console.log("ball clicked");
     });
-    /*
-    give it a class of majority or minority
-    every one must have event listener (ballElem)
-    it will check if majority, remove min add maj or gmae over
-      */
+
+    // dynamically add an inline animation style to the balls for random velocity and start position (negative delay)
+    game.balls[i].horizontalTime
+    let animationStyle = `animation: upAndDown ${game.balls[i].verticalTime}s, leftAndRight ${game.balls[i].horizontalTime}s; animation-delay: ${game.balls[i].horizontalTime - maxSpeed}s;`;
+    ballElem.setAttribute("style", animationStyle);
   }
 }
-// render function
-// create a new element
-// give it the class ball
-// apply the animation, and set the animation times to be equal to the two properties on your contructor
+// find a way to add inline styles to your individual balls and add the animation property, with upADnDown and LeftAndRIght getting their respective timings
+
 
 function Game(ballCount) {
   this.balls = [];
-  this.remaining = Math.ceil(ballCount / 2);
+  this.remaining = Math.floor(ballCount / 2);
   console.log(`remaining = ${this.remaining}`);
 
   for (let i = 0; i < ballCount; i++) {
@@ -90,7 +92,7 @@ function Game(ballCount) {
 }
 
 function randNumRange(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.random() * (max - min) + min;
 }
 
 function startGame() {
@@ -102,12 +104,15 @@ function win() {
   playMsg = winPlayMsg;
   console.log("in win");
   console.log(playMsg);
+  stopGame();
+
 }
 
 function lose() {
   playMsg = losePlayMsg;
   console.log("in lose");
   console.log(playMsg);
+  stopGame();
 }
 
 function clickBall(ball) {
@@ -126,9 +131,25 @@ function winner() {
   for (let i = 0; i < game.balls.length; i++) {
     if (game.balls[i].majority) return false;
   }
-  return true
+  return true;
+}
+function stopGame() {
+  let section = document.getElementById('playArea');
+  section.classList.add("hideBalls");
+  playAgainBtn();
 }
 
+function playAgainBtn() {
+  let footer = document.querySelector('footer');
+  let b = document.createElement('button');
+  b.textContent = playMsg;
+  footer.appendChild(b);
+  b.onclick = function () {
+    footer.removeChild(b);
+    game = new Game(getBallCount());
+    renderBalls();
+  };
+}
 
 let game = new Game(getBallCount());
 console.log(game);
