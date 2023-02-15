@@ -1,9 +1,9 @@
 const firstPlayMsg = "Play now";
 const winPlayMsg = "You won! Play again";
 const losePlayMsg = "You Lost! Play Again";
-const minSpeed = 10;
+const minSpeed = 5;
 const maxSpeed = 30;
-const defaultBallCount = 5;
+const defaultBallCount = 20;
 
 let playMsg = firstPlayMsg;
 
