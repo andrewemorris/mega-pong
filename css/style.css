@@ -42,7 +42,7 @@ div {
   position: absolute;
   height: 40px;
   width: 40px;
-  border-radius: 10px;
+  border-radius: 20px;
 
 }
 
@@ -52,9 +52,11 @@ div {
 
 #playArea {
   position: relative;
-  border: 10px solid black;
-  /*animation-timing-function: linear;
-  animation-iteration-count: infinite; */
+  border: 5px solid darkslategrey;
+  /*
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  */
   height: 500px;
 }
 

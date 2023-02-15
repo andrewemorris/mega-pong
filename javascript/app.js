@@ -146,8 +146,12 @@ function playAgainBtn() {
   footer.appendChild(b);
   b.onclick = function () {
     footer.removeChild(b);
+    console.log(game);
+    document.getElementById("playArea").innerHTML = "";
     game = new Game(getBallCount());
+    console.log(game);
     renderBalls();
+
   };
 }
 
